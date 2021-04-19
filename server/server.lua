@@ -234,7 +234,7 @@ AddEventHandler('qb-bossmenu:server:giveJob', function(data)
     local xTarget = QBCore.Functions.GetPlayerByCitizenId(data.source)
 
     if xPlayer.PlayerData.job.isboss == true then
-        if xTarget and xTarget.Functions.SetJob(xPlayer.PlayerData.job.name) then
+        if xTarget and xTarget.Functions.SetJob(xPlayer.PlayerData.job.name, 0) then
             TriggerClientEvent('QBCore:Notify', src, "You recruit " .. (xTarget.PlayerData.charinfo.firstname .. ' ' .. xTarget.PlayerData.charinfo.lastname) .. " to " .. xPlayer.PlayerData.job.label .. ".", "success")
             TriggerClientEvent('QBCore:Notify', xTarget.PlayerData.source , "You've been recruited to " .. xPlayer.PlayerData.job.label .. ".", "success")
             TriggerEvent('cash_logs:server:createLog', 'bossmenu', 'Recruit', "Successfully recruited " .. (xTarget.PlayerData.charinfo.firstname .. ' ' .. xTarget.PlayerData.charinfo.lastname) .. ' (' .. xPlayer.PlayerData.job.name .. ')', src)
