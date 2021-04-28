@@ -38,7 +38,7 @@ function DrawText3D(v, text)
 end
 
 CreateThread(function()
-    while true do
+    while isLoggedIn do
         Citizen.Wait(5)
         if PlayerJob.name ~= nil then
             local pos = GetEntityCoords(PlayerPedId())
