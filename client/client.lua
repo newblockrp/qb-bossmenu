@@ -1,6 +1,7 @@
 QBCore = nil
 PlayerJob = {}
 isLoggedIn = false
+isInMenu = false
 
 Citizen.CreateThread(function()
 	while QBCore == nil do
@@ -9,12 +10,15 @@ Citizen.CreateThread(function()
 	end
 end)
 
-local isInMenu = false
-
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     isLoggedIn = true
     PlayerJob = QBCore.Functions.GetPlayerData().job
+end)
+
+RegisterNetEvent('QBCore:Client:OnPlayerUnload')
+AddEventHandler('QBCore:Client:OnPlayerUnload', function()
+	isLoggedIn = false
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate')
@@ -38,9 +42,9 @@ function DrawText3D(v, text)
 end
 
 CreateThread(function()
-    while isLoggedIn do
+    while true do
         Citizen.Wait(5)
-        if PlayerJob.name ~= nil then
+        if isLoggedIn and PlayerJob.name ~= nil then
             local pos = GetEntityCoords(PlayerPedId())
             for k, v in pairs(QBCore.Shared.Jobs[PlayerJob.name]) do
                 v = QBCore.Shared.Jobs[PlayerJob.name]["bossmenu"]
