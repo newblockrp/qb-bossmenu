@@ -48,17 +48,19 @@ CreateThread(function()
             local pos = GetEntityCoords(PlayerPedId())
             for k, v in pairs(QBCore.Shared.Jobs[PlayerJob.name]) do
                 v = QBCore.Shared.Jobs[PlayerJob.name]["bossmenu"]
-                if #(pos - v) < 2 then
-                    if #(pos - v) < 1.0 then
-                        DrawText3D(v, "~g~E~w~ - Boss Menu")
-                        if IsControlJustReleased(0, 38) then
-                            TriggerServerEvent("qb-bossmenu:server:openMenu")
+                if v ~= nil then
+                    if #(pos - v) < 2 then
+                        if #(pos - v) < 1.0 then
+                            DrawText3D(v, "~g~E~w~ - Boss Menu")
+                            if IsControlJustReleased(0, 38) then
+                                TriggerServerEvent("qb-bossmenu:server:openMenu")
+                            end
+                        elseif #(pos - v) < 1.5 then
+                            DrawText3D(v, "Boss Menu")
                         end
-                    elseif #(pos - v) < 1.5 then
-                        DrawText3D(v, "Boss Menu")
+                    else
+                        Wait(100)
                     end
-                else
-                    Wait(100)
                 end
             end
         else
